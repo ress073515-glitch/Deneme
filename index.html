@@ -1,212 +1,790 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramazan Çıkla — Düşünceler & İzler</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg: #faf9f7;
-            --white: #ffffff;
-            --ink: #1a1816;
-            --ink2: #3d3b37;
-            --muted: #5a5854;
-            --dim: #b8b4ae;
-            --border: #e8e4de;
-            --accent: #c0392b;
-            --serif: 'Libre Baskerville', Georgia, serif;
-            --sans: 'DM Sans', sans-serif;
-            --wide: 1100px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denemeler — Kişisel Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --white: #ffffff;
+  --ink: #1a1816;
+  --ink2: #3d3b37;
+  --muted: #888580;
+  --dim: #b8b4ae;
+  --border: #e8e4de;
+  --accent: #c0392b;
+  --accent-light: #f9f0ef;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+  --max: 780px;
+  --wide: 1100px;
+}
 
-        /* Temel Sıfırlama */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-        body {
-            background: var(--bg);
-            color: var(--ink);
-            font-family: var(--sans);
-            font-weight: 300;
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
 
-        /* Üst İlerleme Çubuğu */
-        #progress {
-            position: fixed; top: 0; left: 0;
-            height: 3px; width: 0%;
-            background: var(--accent);
-            z-index: 1100;
-            transition: width 0.1s linear;
-        }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
 
-        /* Navigasyon */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            z-index: 1000;
-            height: 70px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%;
-            background: rgba(250,249,247,0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
+/* PROGRESS */
+#progress {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
 
-        .nav-logo {
-            font-family: var(--serif);
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--ink);
-            text-decoration: none;
-        }
-        .nav-logo span { color: var(--accent); }
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+nav.scrolled { border-bottom-color: var(--border); }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--muted);
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a:hover { color: var(--accent); }
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.nav-logo span { color: var(--accent); }
 
-        /* Hero (Giriş) Bölümü */
-        .hero {
-            padding: 160px 5% 80px;
-            max-width: var(--wide);
-            margin: 0 auto;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .hero-badge {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-weight: 600;
-            display: block;
-        }
+.nav-links {
+  display: flex; align-items: center; gap: 32px; list-style: none;
+}
+.nav-links a {
+  font-size: 0.82rem; font-weight: 400;
+  color: var(--muted); text-decoration: none;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
 
-        .hero-title {
-            font-family: var(--serif);
-            font-size: clamp(2.2rem, 6vw, 4rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 25px;
-        }
-        .hero-title em { font-style: italic; color: var(--dim); }
+.search-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); padding: 6px; display: flex;
+  transition: color 0.2s;
+}
+.search-btn:hover { color: var(--accent); }
 
-        .hero-desc { color: var(--muted); max-width: 500px; font-size: 1.05rem; }
+/* SEARCH */
+#search-overlay {
+  position: fixed; inset: 0;
+  background: rgba(250,249,247,0.97);
+  backdrop-filter: blur(20px);
+  z-index: 200; display: flex;
+  flex-direction: column; align-items: center;
+  padding-top: 130px; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+#search-overlay.active { opacity: 1; pointer-events: all; }
+.search-input-wrap { width: 100%; max-width: 600px; position: relative; }
+#search-input {
+  width: 100%; background: var(--white);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 16px 48px 16px 20px;
+  font-family: var(--serif); font-size: 1.2rem;
+  color: var(--ink); outline: none;
+  transition: border-color 0.2s;
+}
+#search-input:focus { border-color: var(--ink); }
+#search-input::placeholder { color: var(--dim); }
+.search-close {
+  position: absolute; right: 14px; top: 50%;
+  transform: translateY(-50%); background: none; border: none;
+  color: var(--muted); cursor: pointer; font-size: 1.2rem;
+}
+#search-results { width: 100%; max-width: 600px; margin-top: 20px; }
+.search-result-item {
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: opacity 0.2s;
+}
+.search-result-item:hover { opacity: 0.6; }
+.search-result-item h4 { font-family: var(--serif); font-size: 1rem; margin-bottom: 3px; }
+.search-result-item p { font-size: 0.8rem; color: var(--muted); }
 
-        /* Ana İçerik Dizilimi */
-        main {
-            max-width: var(--wide);
-            margin: 0 auto;
-            padding: 60px 5%;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 60px;
-        }
+/* HERO */
+.hero {
+  padding: 140px 40px 80px;
+  max-width: var(--wide);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  border-bottom: 1px solid var(--border);
+}
+.hero-left {}
+.hero-label {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 20px;
+  opacity: 0; animation: fadeUp 0.7s 0.1s ease forwards;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em; color: var(--ink);
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
+}
+.hero-title em { font-style: italic; color: var(--muted); }
+.hero-desc {
+  font-size: 0.95rem; color: var(--muted);
+  line-height: 1.8; max-width: 380px;
+  opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards;
+}
+.hero-right {
+  opacity: 0; animation: fadeUp 0.7s 0.4s ease forwards;
+}
+.hero-stats {
+  display: flex; flex-direction: column; gap: 24px;
+  border-left: 1px solid var(--border);
+  padding-left: 40px;
+}
+.hero-stat-num {
+  font-family: var(--serif); font-size: 2.4rem;
+  font-weight: 700; line-height: 1; color: var(--ink);
+}
+.hero-stat-label {
+  font-size: 0.72rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: 4px;
+}
+.hero-stat-sep { width: 24px; height: 1px; background: var(--border); }
 
-        /* Yazı Kartları */
-        .post-card {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 35px;
-            padding: 45px 0;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            color: inherit;
-            transition: opacity 0.3s ease;
-        }
-        .post-card:first-child { padding-top: 0; }
-        .post-card:hover { opacity: 0.85; }
+/* FEATURED */
+.featured-wrap {
+  max-width: var(--wide); margin: 0 auto;
+  padding: 60px 40px;
+  border-bottom: 1px solid var(--border);
+  opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards;
+}
+.section-label {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.featured-card {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 48px; align-items: center; cursor: pointer;
+  padding: 32px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 3px;
+  transition: border-color 0.2s, transform 0.3s;
+}
+.featured-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.featured-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.featured-badge::before { content: '★'; }
+.featured-title {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 700; line-height: 1.25;
+  letter-spacing: -0.01em; margin-bottom: 10px;
+}
+.featured-excerpt { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+.read-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: var(--white);
+  font-size: 0.78rem; font-weight: 500;
+  padding: 11px 20px; border-radius: 2px;
+  text-decoration: none; white-space: nowrap;
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.read-btn:hover { background: var(--accent); transform: translateY(-1px); }
 
-        .post-img-box {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            border-radius: 4px;
-        }
+/* MAIN */
+main {
+  max-width: var(--wide); margin: 0 auto;
+  padding: 60px 40px 80px;
+  display: grid; grid-template-columns: 1fr 300px;
+  gap: 80px; align-items: start;
+}
 
-        .post-img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            background: #eee;
-        }
+/* FILTER */
+.cat-filter {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px;
+}
+.cat-pill {
+  font-size: 0.75rem; font-weight: 400;
+  padding: 6px 14px; border: 1px solid var(--border);
+  border-radius: 2px; cursor: pointer;
+  color: var(--muted); background: none;
+  transition: all 0.2s; letter-spacing: 0.03em;
+}
+.cat-pill:hover, .cat-pill.active {
+  background: var(--ink); border-color: var(--ink); color: var(--white);
+}
 
-        .post-cat {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: block;
-        }
+/* POSTS LIST */
+.posts-list { display: flex; flex-direction: column; }
+.post-item {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 24px; align-items: start;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, background 0.2s;
+}
+.post-item.visible { opacity: 1; transform: translateY(0); }
+.post-item:hover .post-item-title { color: var(--accent); }
+.post-item-cats { display: flex; gap: 6px; margin-bottom: 8px; }
+.post-cat-tag {
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 2px;
+}
+.cat-Teknoloji { background: #e8f4fd; color: #1a6ea8; }
+.cat-Bilim     { background: #e8f9f0; color: #1a7a45; }
+.cat-Sanat     { background: #fde8f4; color: #a81a6e; }
+.cat-Felsefe   { background: #f0e8fd; color: #5c1aa8; }
+.cat-Sinema    { background: #fdf4e8; color: #a87a1a; }
+.cat-Uzay      { background: #e8eafd; color: #1a2ea8; }
+.cat-Edebiyat  { background: #f4fde8; color: #5aa81a; }
+.cat-default   { background: var(--bg); color: var(--muted); }
 
-        .post-title { font-family: var(--serif); font-size: 1.7rem; margin-bottom: 15px; line-height: 1.3; }
-        .post-summary { font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; }
-        .post-date { font-size: 0.75rem; color: var(--dim); }
+.post-item-title {
+  font-family: var(--serif); font-size: 1.1rem;
+  font-weight: 700; line-height: 1.3;
+  letter-spacing: -0.01em; margin-bottom: 6px;
+  transition: color 0.2s;
+}
+.post-item-excerpt {
+  font-size: 0.85rem; color: var(--muted);
+  line-height: 1.65;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.post-item-meta {
+  font-size: 0.72rem; color: var(--dim);
+  margin-top: 10px; display: flex; gap: 10px; align-items: center;
+}
+.post-item-meta-dot { width: 2px; height: 2px; background: var(--dim); border-radius: 50%; }
+.post-item-right {
+  display: flex; align-items: center;
+  padding-top: 28px;
+}
+.post-arrow {
+  width: 36px; height: 36px; border: 1px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; color: var(--dim);
+  transition: all 0.2s; flex-shrink: 0;
+}
+.post-item:hover .post-arrow {
+  background: var(--accent); border-color: var(--accent);
+  color: var(--white); transform: rotate(45deg);
+}
 
-        /* Yan Menü (Sidebar) */
-        .widget {
-            border: 1px solid var(--border);
-            padding: 30px;
-            background: var(--white);
-            margin-bottom: 30px;
-            border-radius: 4px;
-        }
-        
-        .widget-title {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--dim);
-            margin-bottom: 25px;
-            display: flex; align-items: center; gap: 15px;
-        }
-        .widget-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+/* LOAD MORE */
+.load-more-wrap { display: flex; justify-content: center; margin-top: 32px; }
+.load-more-btn {
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--sans);
+  font-size: 0.78rem; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 11px 28px;
+  border-radius: 2px; cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.load-more-btn:hover { border-color: var(--ink); color: var(--ink); }
 
-        .author-info { text-align: center; }
-        .author-avatar {
-            width: 70px; height: 70px;
-            border-radius: 50%;
-            background: var(--ink);
-            margin: 0 auto 20px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: var(--serif); font-size: 1.8rem; color: var(--white);
-        }
+/* SIDEBAR */
+.sidebar { position: sticky; top: 80px; }
+.sidebar-widget {
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 24px; margin-bottom: 16px; background: var(--white);
+}
+.widget-title {
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.widget-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-        /* Galeri */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .gallery-item {
-            aspect-ratio: 1;
-            overflow: hidden;
-            border-radius: 3px;
-            background: var(--bg);
-        }
-        .gallery-item img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.
+.author-card { text-align: center; }
+.author-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--ink); margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 700; color: var(--white);
+}
+.author-name { font-family: var(--serif); font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.author-bio { font-size: 0.8rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+.author-social { display: flex; justify-content: center; gap: 8px; }
+.social-btn {
+  width: 32px; height: 32px; border: 1px solid var(--border);
+  border-radius: 2px; display: flex; align-items: center;
+  justify-content: center; color: var(--muted); cursor: pointer;
+  transition: all 0.2s; text-decoration: none; font-size: 0.75rem;
+}
+.social-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+.newsletter-form { display: flex; flex-direction: column; gap: 8px; }
+.newsletter-input {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 2px; padding: 9px 14px;
+  color: var(--ink); font-family: var(--sans); font-size: 0.82rem;
+  outline: none; transition: border-color 0.2s;
+}
+.newsletter-input:focus { border-color: var(--ink); }
+.newsletter-input::placeholder { color: var(--dim); }
+.newsletter-btn {
+  background: var(--ink); border: none; border-radius: 2px;
+  padding: 9px; color: var(--white); font-family: var(--sans);
+  font-size: 0.78rem; font-weight: 500; cursor: pointer;
+  transition: background 0.2s;
+}
+.newsletter-btn:hover { background: var(--accent); }
+
+.trending-list { list-style: none; display: flex; flex-direction: column; }
+.trending-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: opacity 0.2s;
+}
+.trending-item:last-child { border-bottom: none; padding-bottom: 0; }
+.trending-item:hover { opacity: 0.6; }
+.trending-num { font-size: 0.65rem; color: var(--dim); padding-top: 3px; min-width: 16px; }
+.trending-title { font-family: var(--serif); font-size: 0.85rem; line-height: 1.35; font-weight: 700; }
+
+.tags-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-item {
+  font-size: 0.72rem; padding: 4px 10px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 2px; color: var(--muted); cursor: pointer;
+  transition: all 0.2s;
+}
+.tag-item:hover { border-color: var(--ink); color: var(--ink); }
+
+/* MODAL */
+#article-modal {
+  position: fixed; inset: 0; z-index: 300;
+  display: flex; align-items: flex-end; justify-content: center;
+  pointer-events: none;
+}
+#article-modal.open { pointer-events: all; }
+.modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(26,24,22,0.5);
+  backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity 0.4s;
+}
+#article-modal.open .modal-backdrop { opacity: 1; }
+.modal-sheet {
+  position: relative; width: 100%; max-width: 700px;
+  max-height: 88vh; background: var(--white);
+  border-radius: 4px 4px 0 0;
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  padding: 48px 52px 80px;
+}
+#article-modal.open .modal-sheet { transform: translateY(0); }
+.modal-handle {
+  width: 32px; height: 3px; background: var(--border);
+  border-radius: 2px; margin: 0 auto 36px;
+}
+.modal-cats { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.modal-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 20px;
+}
+.modal-byline {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  font-size: 0.78rem; color: var(--muted);
+}
+.modal-content { font-size: 1rem; line-height: 1.9; color: var(--ink2); }
+.modal-content p { margin-bottom: 1.4em; }
+.modal-content strong { color: var(--ink); font-weight: 500; }
+.modal-content em { font-style: italic; }
+.modal-close {
+  position: absolute; top: 18px; right: 20px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 50%; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--muted); transition: all 0.2s;
+  font-size: 0.9rem;
+}
+.modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  max-width: var(--wide); margin: 0 auto;
+}
+.footer-brand { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; }
+.footer-brand span { color: var(--accent); }
+.footer-copy { font-size: 0.75rem; color: var(--dim); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--ink); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  main { grid-template-columns: 1fr; padding: 40px 24px; }
+  .sidebar { position: relative; top: 0; }
+  .hero { grid-template-columns: 1fr; gap: 40px; padding: 120px 24px 60px; }
+  .hero-stats { border-left: none; border-top: 1px solid var(--border); padding: 32px 0 0; flex-direction: row; gap: 32px; }
+  .hero-stat-sep { display: none; }
+  .featured-wrap { padding: 40px 24px; }
+  .featured-card { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .modal-sheet { padding: 32px 20px 60px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+  footer .footer-links { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">Denemeler<span>.</span></a>
+  <div style="display:flex;align-items:center;gap:32px">
+    <ul class="nav-links">
+      <li><a href="#">Yazılar</a></li>
+      <li><a href="#">Hakkımda</a></li>
+      <li><a href="#">İletişim</a></li>
+    </ul>
+    <button class="search-btn" id="searchOpen" aria-label="Ara">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div id="search-overlay">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" placeholder="Ara... (teknoloji, felsefe, sanat...)" autocomplete="off">
+    <button class="search-close" id="searchClose">✕</button>
+  </div>
+  <div id="search-results"></div>
+</div>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label">Kişisel günlük</p>
+    <h1 class="hero-title">Düşünceler,<br><em>meraklar</em> &<br>izler.</h1>
+    <p class="hero-desc">Sanat, teknoloji, bilim ve felsefe üzerine kişisel yazılar. Aklımda kalanları buraya döküyorum.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num" id="postCountStat">0</div>
+        <div class="hero-stat-label">Yazı</div>
+      </div>
+      <div class="hero-stat-sep"></div>
+      <div>
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Kategori</div>
+      </div>
+      <div class="hero-stat-sep"></div>
+      <div>
+        <div class="hero-stat-num">2024</div>
+        <div class="hero-stat-label">Yılından beri</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="featured-wrap">
+  <p class="section-label">Editör seçimi</p>
+  <div class="featured-card" id="featuredCard">
+    <div>
+      <div class="featured-badge">Öne Çıkan</div>
+      <h2 class="featured-title" id="featuredTitle">Yıldızlara Neden Asla Gidemeyeceğiz?</h2>
+      <p class="featured-excerpt" id="featuredExcerpt">İnsanlık tarihi, "imkansız" denilen şeyleri başarma tarihidir. Ama ışık hızı duvarı karşısında ne yapacağız?</p>
+    </div>
+    <button class="read-btn" id="featuredBtn">
+      Oku
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<main>
+  <section>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+      <p style="font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim)">Son yazılar</p>
+      <button onclick="clearFilter()" style="font-size:0.72rem;color:var(--dim);background:none;border:none;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--dim)'">Tümünü gör →</button>
+    </div>
+    <div class="cat-filter" id="catFilter"></div>
+    <div class="posts-list" id="postsList"></div>
+    <div class="load-more-wrap">
+      <button class="load-more-btn" id="loadMoreBtn">Daha fazla yükle</button>
+    </div>
+  </section>
+
+  <aside class="sidebar">
+    <div class="sidebar-widget">
+      <p class="widget-title">Yazar</p>
+      <div class="author-card">
+        <div class="author-avatar" id="authorInitial">Y</div>
+        <h3 class="author-name" id="authorName">Yazar Adı</h3>
+        <p class="author-bio" id="authorBio">Düşünceler, meraklar ve izler. Aklımda kalanları yazıyorum.</p>
+        <div class="author-social">
+          <a class="social-btn" title="Twitter/X">𝕏</a>
+          <a class="social-btn" title="Instagram">◈</a>
+          <a class="social-btn" title="YouTube">▶</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <p class="widget-title">Bülten</p>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;line-height:1.65">Yeni yazılar e-postana gelsin.</p>
+      <div class="newsletter-form" id="newsletterForm">
+        <input class="newsletter-input" type="email" placeholder="eposta@adresin.com" id="nlEmail">
+        <button class="newsletter-btn" id="nlBtn">Abone ol →</button>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <p class="widget-title">Trend</p>
+      <ul class="trending-list" id="trendingList"></ul>
+    </div>
+
+    <div class="sidebar-widget">
+      <p class="widget-title">Etiketler</p>
+      <div class="tags-cloud" id="tagsCloud"></div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="footer-brand">Denemeler<span>.</span></div>
+  <p class="footer-copy">© 2025 — Tüm hakları saklıdır</p>
+  <div class="footer-links">
+    <a href="#">Gizlilik</a>
+    <a href="#">RSS</a>
+    <a href="#">İletişim</a>
+  </div>
+</footer>
+
+<div id="article-modal">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-sheet" id="modalSheet">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-handle"></div>
+    <div class="modal-cats" id="modalCats"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <div class="modal-byline" id="modalByline"></div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const POSTS = [
+  { id:1, title:"Yıldızlara Neden Asla Gidemeyeceğiz?", excerpt:"İnsanlık tarihi 'imkansız' denilen şeyleri başarma tarihidir. Ama ışık hızı duvarı karşısında ne yapacağız?", content:`<p>İnsanlık tarihi, "imkansız" denilen şeyleri başarma tarihidir.</p><p>1895'te Lord Kelvin, dönemin en saygın fizikçilerinden biri, havadan ağır araçların uçmasının imkansız olduğunu söyledi. Sekiz yıl sonra Wright kardeşler uçtu. Ama evren bize bazı sınırlar koymuş. Işık hızı bunların en temeli.</p><p>Proxima Centauri'ye — en yakın yıldızımıza — gitmek, <strong>günümüz teknolojisiyle 73.000 yıl</strong> sürer. Işık hızının %10'una çıkabilsek bile 43 yıl. Bu, bir insanın ömrüdür.</p><p>Ve bu hesap bile fizik tarafından bize sunulmuş <em>en iyimser senaryo.</em> Gerçekte, bir nesneyi ışığa yakın hıza çıkarmak için gereken enerji, nesnenin kütlesi sonsuz yaklaşırken, sonsuz büyür.</p>`, cats:["Bilim","Uzay","Teknoloji"], date:"27 Şub 2026", readTime:8, featured:true },
+  { id:2, title:"Sinek Beyni Bilgisayara Yüklendi", excerpt:"Dünyanın ilk tam beyin emülasyonu gerçekleşti. Peki bu ne anlama geliyor?", content:`<p>Size çok basit görünümlü bir video izleteceğim. Ama yapanların iddiasına göre bu, dünyanın ilk tam beyin emülasyonu.</p><p>Ekranın sol tarafında dijital ortamda bir park görüyoruz. Ve o parkın içinde bir sinek var. <em>Dijital bir sinek.</em></p><p>Bu neden bu kadar önemli? Çünkü bu beyin, <strong>gerçek bir sineğin tüm 139.255 nöronunun</strong> birebir haritalanmasıyla oluşturuldu.</p>`, cats:["Bilim","Teknoloji"], date:"13 Mar 2026", readTime:6, featured:false },
+  { id:3, title:"Sesin Rengi Var mı? Sinestezi ve Yaratıcılık", excerpt:"Bouba mu, Kiki mi? Beynin ses ile şekli birleştirmesinin ardında ne var?", content:`<p>Size iki şekil göstereceğim. Biri yuvarlak, kavisli, yumuşak hatlara sahip. Diğeri sivri, köşeli, neredeyse kırık cam parçası gibi.</p><p>Ve şimdi de size iki isim vereceğim: <strong>Bouba</strong> ve <strong>Kiki</strong>. Hangisi hangisi?</p><p>Eğer yuvarlak olana Bouba, sivri olana da Kiki dediyseniz, tebrikler — dünyadaki insanların %95'iyle aynı cevabı verdiniz.</p><p>Sinestezikler için müzik renk taşır. Harfler koku verir. Sayıların kişilikleri vardır.</p>`, cats:["Sanat","Bilim"], date:"20 Şub 2026", readTime:7, featured:false },
+  { id:4, title:"Olmak ya da HAMNET", excerpt:"'To be or not to be' — yüzlerce yıldır tekrarlanan bu cümlenin içi neden boşaldı?", content:`<p><em>"To be or not to be."</em></p><p>Dünyanın en meşhur sözlerinden biri. Shakespeare'i hiç okumamış insanlar bile bu sözü bilir. O kadar çok tekrarlandı ki artık neredeyse anlamını kaybetti.</p><p>HAMNET, Shakespeare'in 11 yaşında ölen oğlunun adı. Ve Hamlet, bu kayıptan sonra yazıldı. <strong>Bir baba, oğlunu kaybettikten sonra nasıl yazar?</strong></p>`, cats:["Edebiyat","Felsefe","Sanat"], date:"8 Mar 2026", readTime:10, featured:false },
+  { id:5, title:"Dünyanın En Ölümcül Hayvanı", excerpt:"Köpekbalığı mı, kurt mu? Cevap sizi şaşırtacak.", content:`<p>Dünyada en çok insan öldüren hayvan hangisi? Köpekbalıkları mı? Kurtlar mı?</p><p>Köpekbalıkları, yılda ortalama <strong>6 kişi</strong> öldürüyor. Altı. Kurtlar daha da zararsız — yılda sadece 5 ölüm.</p><p>Cevap? <em>Sivrisinek.</em> Yılda 750.000 ila 1.000.000 insan ölümünden sorumlu. Sıtma, dang humması, sarı humma, zika — tüm bunların vektörü tek bir böcek.</p>`, cats:["Bilim"], date:"22 Mar 2026", readTime:5, featured:false },
+  { id:6, title:"Yapay Zeka Yaratıcı Olabilir mi?", excerpt:"Makine üretebilir, ama hissedebilir mi? Sanatın özünde ne var?", content:`<p>DALL-E bir tablo yapıyor. Midjourney bir illüstrasyon üretiyor. Claude bir şiir yazıyor. Peki bunlar <em>sanat</em> mı?</p><p>Eğer sanat, <strong>deneyimin aktarımıysa</strong>, bir insanın hissettiği bir şeyi başka bir insana iletme çabasıysa — işte orada sistem duruyor.</p><p>Bir yapay zeka hiç gece 3'te ağlamadı. Hiç aşık olmadı. Hiç kaybetmedi.</p>`, cats:["Teknoloji","Felsefe","Sanat"], date:"5 Mar 2026", readTime:9, featured:false },
+  { id:7, title:"Project Hail Mary: Bir Film Eleştirisi", excerpt:"Ryan Gosling'in uzayda uyandığı bu film, sinemanın en iyi anlarından birini sunuyor.", content:`<p>"Project Hail Mary" filmini sinemada yeni izledim ve sıcağı sıcağına görüşlerimi paylaşmak istiyorum.</p><p>Filmler eskisi kadar iyi değil bence — ama işte bu, sinemanın bir insana hissettirebileceği neredeyse her şeyi hissettiriyor. Merak, korku, yalnızlık, bağlılık ve umut. Hepsi bir arada.</p>`, cats:["Sinema","Bilim"], date:"27 Mar 2026", readTime:7, featured:false },
+  { id:8, title:"Dikkat Ekonomisi ve Kayıp Zamanımız", excerpt:"Telefonunuza her baktığınızda bir şirket para kazanıyor. Bu tesadüf değil.", content:`<p>2004'te insanlar günde ortalama <strong>2,5 saatini</strong> ekran başında geçiriyordu. 2024'te bu rakam 7 saati aştı.</p><p>Dikkat ekonomisi, insan dikkatinin para eden bir kaynağa dönüştürülmesi üzerine kurulu. Her scroll, her beğeni, her bildirim — bunların hepsinin arkasında <em>makine öğrenmesi modelleri</em> var.</p>`, cats:["Teknoloji","Felsefe"], date:"1 Mar 2026", readTime:8, featured:false }
+];
+
+const CATS = [...new Set(POSTS.flatMap(p => p.cats))];
+const TAGS = ["#düşünce","#teknoloji","#insan","#bilim","#felsefe","#sinema","#kültür","#tarih","#gelecek","#sanat"];
+
+let activeFilter = null;
+let visibleCount = 6;
+let filteredPosts = [...POSTS];
+
+// Progress
+window.addEventListener("scroll", () => {
+  const s = window.scrollY, h = document.body.scrollHeight - window.innerHeight;
+  document.getElementById("progress").style.width = (s/h*100)+"%";
+  document.getElementById("navbar").classList.toggle("scrolled", s > 20);
+});
+
+// Counter
+function animateCount(el, to, dur) {
+  let n=0; const step=Math.ceil(to/(dur/16));
+  const t=setInterval(()=>{ n+=step; if(n>=to){el.textContent=to;clearInterval(t);}else el.textContent=n; },16);
+}
+setTimeout(()=>animateCount(document.getElementById("postCountStat"),POSTS.length,800),400);
+
+function getCatClass(c) {
+  const m={Teknoloji:"cat-Teknoloji",Bilim:"cat-Bilim",Sanat:"cat-Sanat",Felsefe:"cat-Felsefe",Sinema:"cat-Sinema",Uzay:"cat-Uzay",Edebiyat:"cat-Edebiyat"};
+  return m[c]||"cat-default";
+}
+
+function renderCatFilter() {
+  const el=document.getElementById("catFilter");
+  el.innerHTML=`<button class="cat-pill ${!activeFilter?'active':''}" data-cat="">Tümü</button>`+
+    CATS.map(c=>`<button class="cat-pill ${activeFilter===c?'active':''}" data-cat="${c}">${c}</button>`).join("");
+  el.querySelectorAll(".cat-pill").forEach(btn=>btn.addEventListener("click",()=>{
+    activeFilter=btn.dataset.cat||null;
+    filteredPosts=activeFilter?POSTS.filter(p=>p.cats.includes(activeFilter)):[...POSTS];
+    visibleCount=6; renderCatFilter(); renderPosts();
+  }));
+}
+
+function clearFilter() {
+  activeFilter=null; filteredPosts=[...POSTS]; visibleCount=6;
+  renderCatFilter(); renderPosts();
+}
+
+function renderPosts() {
+  const list=document.getElementById("postsList");
+  const shown=filteredPosts.slice(0,visibleCount);
+  list.innerHTML=shown.map(p=>`
+    <div class="post-item" data-id="${p.id}">
+      <div>
+        <div class="post-item-cats">${p.cats.map(c=>`<span class="post-cat-tag ${getCatClass(c)}">${c}</span>`).join("")}</div>
+        <h3 class="post-item-title">${p.title}</h3>
+        <p class="post-item-excerpt">${p.excerpt}</p>
+        <div class="post-item-meta">
+          <span>${p.date}</span>
+          <span class="post-item-meta-dot"></span>
+          <span>${p.readTime} dk okuma</span>
+        </div>
+      </div>
+      <div class="post-item-right">
+        <div class="post-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </div>`).join("");
+
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add("visible"),i*60); obs.unobserve(e.target); }
+    });
+  },{threshold:0.1});
+  list.querySelectorAll(".post-item").forEach(c=>{obs.observe(c); c.addEventListener("click",()=>openModal(parseInt(c.dataset.id)));});
+
+  document.getElementById("loadMoreBtn").style.display=visibleCount>=filteredPosts.length?"none":"flex";
+}
+
+document.getElementById("loadMoreBtn").addEventListener("click",function(){
+  this.textContent="Yükleniyor...";
+  setTimeout(()=>{ visibleCount+=4; renderPosts(); this.textContent="Daha fazla yükle"; },500);
+});
+
+function renderTrending(){
+  const top=[...POSTS].sort((a,b)=>b.readTime-a.readTime).slice(0,4);
+  document.getElementById("trendingList").innerHTML=top.map((p,i)=>
+    `<li class="trending-item" data-id="${p.id}"><span class="trending-num">0${i+1}</span><span class="trending-title">${p.title}</span></li>`).join("");
+  document.querySelectorAll(".trending-item").forEach(item=>item.addEventListener("click",()=>openModal(parseInt(item.dataset.id))));
+}
+
+function renderTags(){
+  document.getElementById("tagsCloud").innerHTML=TAGS.map(t=>`<span class="tag-item">${t}</span>`).join("");
+}
+
+function initFeatured(){
+  const f=POSTS.find(p=>p.featured)||POSTS[0];
+  document.getElementById("featuredTitle").textContent=f.title;
+  document.getElementById("featuredExcerpt").textContent=f.excerpt;
+  document.getElementById("featuredBtn").addEventListener("click",()=>openModal(f.id));
+  document.getElementById("featuredCard").addEventListener("click",(e)=>{ if(e.target!==document.getElementById("featuredBtn"))openModal(f.id); });
+}
+
+function openModal(id){
+  const p=POSTS.find(x=>x.id===id); if(!p) return;
+  document.getElementById("modalCats").innerHTML=p.cats.map(c=>`<span class="post-cat-tag ${getCatClass(c)}">${c}</span>`).join("");
+  document.getElementById("modalTitle").textContent=p.title;
+  document.getElementById("modalByline").innerHTML=`<span>Yazar</span><span>·</span><span>${p.date}</span><span>·</span><span>${p.readTime} dakika okuma</span>`;
+  document.getElementById("modalContent").innerHTML=p.content;
+  document.getElementById("article-modal").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeModal(){
+  document.getElementById("article-modal").classList.remove("open");
+  document.body.style.overflow="";
+}
+document.getElementById("modalClose").addEventListener("click",closeModal);
+document.getElementById("modalBackdrop").addEventListener("click",closeModal);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeModal(); closeSearch(); }});
+
+document.getElementById("searchOpen").addEventListener("click",()=>{
+  document.getElementById("search-overlay").classList.add("active");
+  document.getElementById("search-input").focus();
+  document.body.style.overflow="hidden";
+});
+document.getElementById("searchClose").addEventListener("click",closeSearch);
+function closeSearch(){
+  document.getElementById("search-overlay").classList.remove("active");
+  document.getElementById("search-input").value="";
+  document.getElementById("search-results").innerHTML="";
+  document.body.style.overflow="";
+}
+document.getElementById("search-input").addEventListener("input",function(){
+  const q=this.value.toLowerCase().trim();
+  const r=document.getElementById("search-results");
+  if(!q){r.innerHTML="";return;}
+  const res=POSTS.filter(p=>p.title.toLowerCase().includes(q)||p.excerpt.toLowerCase().includes(q)||p.cats.some(c=>c.toLowerCase().includes(q)));
+  if(!res.length){r.innerHTML=`<p style="color:var(--dim);font-size:0.85rem;padding:16px 0">Sonuç bulunamadı.</p>`;return;}
+  r.innerHTML=res.map(x=>`<div class="search-result-item" data-id="${x.id}"><h4>${x.title}</h4><p>${x.cats.join(" · ")} · ${x.readTime} dk</p></div>`).join("");
+  r.querySelectorAll(".search-result-item").forEach(item=>item.addEventListener("click",()=>{closeSearch();setTimeout(()=>openModal(parseInt(item.dataset.id)),300);}));
+});
+
+document.getElementById("nlBtn").addEventListener("click",()=>{
+  const email=document.getElementById("nlEmail").value;
+  if(!email||!email.includes("@"))return;
+  document.getElementById("newsletterForm").innerHTML=`<p style="color:var(--accent);font-size:0.82rem;text-align:center;padding:6px 0">✓ Abone oldunuz!</p>`;
+});
+
+// Author — buradan değiştirebilirsin
+const AUTHOR={name:"Yazar Adı",initial:"Y",bio:"Düşünceler, meraklar ve izler. Aklımda kalanları yazıyorum."};
+document.getElementById("authorName").textContent=AUTHOR.name;
+document.getElementById("authorBio").textContent=AUTHOR.bio;
+document.getElementById("authorInitial").textContent=AUTHOR.initial;
+
+renderCatFilter(); renderPosts(); renderTrending(); renderTags(); initFeatured();
+</script>
+</body>
+</html>
